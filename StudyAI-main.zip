@@ -1541,3 +1541,287 @@ Offline demo is running successfully.
 ''';
   }
 }
+name: studyai
+description: StudyAI - AI-powered student assistant for homework, notes, quizzes, PDF tools, planner and more.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+
+  firebase_core: ^3.4.0
+  firebase_auth: ^5.2.0
+  cloud_firestore: ^5.4.0
+  firebase_storage: ^12.2.0
+  firebase_messaging: ^15.1.0
+  google_sign_in: ^6.2.1
+
+  google_fonts: ^6.2.1
+  flutter_svg: ^2.0.10+1
+  cached_network_image: ^3.3.1
+  shimmer: ^3.0.0
+  lottie: ^3.1.2
+  flutter_animate: ^4.5.0
+  iconsax: ^0.0.8
+  gap: ^3.0.1
+
+  go_router: ^14.2.7
+
+  shared_preferences: ^2.3.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.4
+  uuid: ^4.4.2
+  intl: ^0.19.0
+  timeago: ^3.7.0
+
+  http: ^1.2.2
+  dio: ^5.6.0
+
+  file_picker: ^8.1.2
+  syncfusion_flutter_pdfviewer: ^26.2.11
+  pdf: ^3.11.1
+  printing: ^5.13.1
+
+  camera: ^0.11.0+2
+  image_picker: ^1.1.2
+  google_mlkit_text_recognition: ^0.13.0
+
+  flutter_local_notifications: ^17.2.2
+  timezone: ^0.9.4
+
+  in_app_purchase: ^3.2.0
+  google_mobile_ads: ^5.1.0
+
+  url_launcher: ^6.3.0
+  share_plus: ^10.0.2
+  permission_handler: ^11.3.1
+  connectivity_plus: ^6.0.5
+  flutter_markdown: ^0.7.3+1
+  equatable: ^2.0.5
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  build_runner: ^2.4.12
+  riverpod_generator: ^2.4.3
+  freezed: ^2.5.7
+  json_serializable: ^6.8.0
+  hive_generator: ^2.0.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/fonts/allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}pluginManagement {
+    def flutterSdkPath = {
+        def properties = new Properties()
+        file("local.properties").withInputStream { properties.load(it) }
+        def flutterSdkPath = properties.getProperty("flutter.sdk")
+        assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
+        return flutterSdkPath
+    }()
+
+    includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
+
+    repositories {
+        google()plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+android {
+    namespace "com.studyai.app"
+    compileSdk 34
+    ndkVersion flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        applicationId "com.studyai.app"
+        minSdk 21
+        targetSdk 34
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22"
+}<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <application
+        android:name="${applicationName}"
+        android:label="StudyAI"
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"/>
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+        </activity>
+
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2"/>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
+
+    </application>
+
+</manifest>name: Build StudyAI APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    name: Build Release APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.5'
+          channel: stable
+          cache: true
+
+      - name: Check Flutter
+        run: flutter --version
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Analyze (optional)
+        run: flutter analyze --no-fatal-infos || true
+
+      - name: Build APK (release)
+        run: flutter build apk --release
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: StudyAI-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 14
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+    id "com.android.application" version "8.1.0" apply false
+    id "org.jetbrains.kotlin.android" version "1.8.22" apply false
+}
+
+include ":app"
