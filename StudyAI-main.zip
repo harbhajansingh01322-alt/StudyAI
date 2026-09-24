@@ -1539,7 +1539,7 @@ $query
 
 Offline demo is running successfully.
 ''';
-  }
+ 
 }
 name: studyai
 description: StudyAI - AI-powered student assistant for homework, notes, quizzes, PDF tools, planner and more.
